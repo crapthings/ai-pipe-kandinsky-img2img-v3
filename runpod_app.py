@@ -28,10 +28,6 @@ def run (job, _generator = None):
 
         input_image = load_image(input_url).convert('RGB')
 
-        originalwidth, originalHeight = input_image.size
-
-        input_image = input_image.resize([1024, 1024])
-
         if seed is not None:
             _generator = torch.Generator(device = 'cuda').manual_seed(seed)
 
@@ -44,8 +40,6 @@ def run (job, _generator = None):
             strength = strength,
             generator = _generator
         ).images[0]
-
-        output_image = output_image.resize([originalwidth, originalHeight])
 
         if debug:
             output_image.save('sample.png')
